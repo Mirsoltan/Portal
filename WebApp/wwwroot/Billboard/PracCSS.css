@@ -1,0 +1,84 @@
+﻿/* [SLIDER] */
+#sliderprac, #sliderprac .slideprac {
+    width: 300px;
+    height: 250px;
+}
+
+#sliderprac {
+    overflow: hidden;
+    margin: 0 auto;
+    font-size: 1.2em;
+    background: #ffd7d1;
+}
+
+    #sliderprac .containerprac {
+        position: relative;
+        width: 90000px; /* Assign an insanely large width */
+        top: 0;
+        right: 0;
+        animation: slide-animation 25s infinite;
+    }
+
+    #sliderprac .slideprac {
+        position: relative;
+        float: left;
+        box-sizing: border-box;
+        padding: 10px 20px;
+    }
+
+/* [ANIMATION] */
+@keyframes slide-animation {
+    0% {
+        opacity: 0;
+        right: 0;
+    }
+
+    11% {
+        opacity: 1;
+        right: 0;
+    }
+
+    22% {
+        right: 100%;
+    }
+
+    33% {
+        right: 100%;
+    }
+
+    44% {
+        right: 200%;
+    }
+
+    55% {
+        right: 200%;
+    }
+
+    66% {
+        right: 300%;
+    }
+
+    77% {
+        right: 300%;
+    }
+
+    88% {
+        opacity: 1;
+        right: 400%;
+    }
+
+    100% {
+        opacity: 0;
+        right: 400%;
+    }
+}
+
+/* [DOES NOT MATTER] */
+htmlz, bodyz {
+    font-family: arial;
+    background: #ffe9d8;
+}
+
+h1 {
+    text-align: center;
+}

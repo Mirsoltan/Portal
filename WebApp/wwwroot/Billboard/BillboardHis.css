@@ -1,0 +1,27 @@
+﻿
+
+.scroll {
+    width: 100%; /* Optional */
+    /* border-collapse: collapse; */
+}
+
+    .scroll tbody,
+    .scroll thead {
+        display: block;
+    }
+
+thead tr th {
+    text-align: center;
+}
+
+#table_body {
+    height: 250px;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+
+tbody td, thead th {
+    width: 21.1%; /* Optional */
+}

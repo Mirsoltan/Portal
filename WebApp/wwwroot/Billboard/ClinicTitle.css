@@ -1,0 +1,19 @@
+﻿
+.v-slider-frame1 {
+    border: 1px solid #800080 !important;
+    /*height: 50px !important;*/
+    overflow: hidden !important;
+    text-align: center !important;
+}
+
+ul.v-slides1 {
+    list-style-type: none;
+    transform: translateY(50px);
+    padding: 0;
+}
+
+.v-slide1 {
+    font-size: 24px;
+    line-height: 50px;
+    color: #800080;
+}

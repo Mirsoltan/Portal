@@ -1,0 +1,27 @@
+﻿@model ViewModels.BaseViewModels.BaseViewmodel
+
+<div class="form-group">
+    <label asp-for="InsertBy" class="control-label"></label>
+    <input asp-for="InsertBy" class="form-control" readonly />
+    <span asp-validation-for="InsertBy" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="InsertDate" class="control-label"></label>
+    <input asp-for="InsertDate" class="form-control" readonly />
+</div>
+<div class="form-group">
+    <label asp-for="UpdateBy" class="control-label"></label>
+    <input asp-for="UpdateBy" class="form-control" readonly />
+</div>
+<div class="form-group">
+    <label asp-for="UpdateDate" class="control-label"></label>
+    <input asp-for="UpdateDate" class="form-control" readonly />
+</div>
+<div class="form-group">
+    <label asp-for="DeleteBy" class="control-label"></label>
+    <input asp-for="DeleteBy" class="form-control" readonly />
+</div>
+<div class="form-group">
+    <label asp-for="DeleteDate" class="control-label"></label>
+    <input asp-for="DeleteDate" class="form-control" readonly/>
+</div>

@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+
+<security-trimming asp-action="Index" asp-controller="UserManager" asp-area="Admin">
+    <li class="nav-item nav-dropdown">
+
+        <a href="#" class="nav-link nav-dropdown-toggle">
+            <i class="icon icon-target"></i> مدیریت کاربران <i class="fa fa-caret-left"></i>
+        </a>
+        <ul class="nav-dropdown-items">
+            <li class="nav-item">
+                <a href="/Admin/UserManager/Index" class="nav-link">
+                    <i class="icon icon-target"></i>   کاربران
+                </a>
+            </li>
+        </ul>
+    </li>
+</security-trimming>
+<security-trimming asp-action="Index" asp-controller="RolesManager" asp-area="Admin">
+    <li class="nav-item nav-dropdown">
+        <a href="#" class="nav-link nav-dropdown-toggle">
+            <i class="icon icon-list"></i> مدیریت نقش ها <i class="fa fa-caret-left"></i>
+        </a>
+        <ul class="nav-dropdown-items">
+            <security-trimming asp-action="Index" asp-controller="RolesManager" asp-area="Admin">
+                <li class="nav-item">
+                    <a href="/Admin/RolesManager/Index" class="nav-link">
+                        <i class="icon icon-target"></i> مشاهده نقش ها
+                    </a>
+                </li>
+            </security-trimming>
+            <security-trimming asp-action="Create" asp-controller="RolesManager" asp-area="Admin">
+                <li class="nav-item">
+                    <a href="/Admin/RolesManager/Create" class="nav-link">
+                        <i class="icon icon-target"></i> افزودن نقش جدید
+                    </a>
+                </li>
+            </security-trimming>
+        </ul>
+    </li>
+</security-trimming>

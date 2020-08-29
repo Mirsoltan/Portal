@@ -1,0 +1,17 @@
+﻿<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-title">پنل مدیریت</li>
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                    <i class="icon icon-speedometer"></i> داشبورد
+                </a>
+            </li>
+        </ul>
+        <!-- Admin Menu-->
+        <security-trimming asp-action="Index" asp-controller="UserManager" asp-area="Admin">
+            @await Html.PartialAsync("~/Areas/MasterAdmin/Views/Shared/_AsidMenu.cshtml")
+        </security-trimming>
+        <!-- End Admin Menu-->
+    </nav>
+</div>
