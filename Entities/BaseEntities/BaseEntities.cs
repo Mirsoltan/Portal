@@ -6,17 +6,15 @@ using System.Text;
 
 namespace Entities.BaseEntities
 {
-    public class BaseEntities<T> : IBaseEntities
+    public class BaseEntity : IBaseEntities
     {
-        [Display(Name = "شناسه")]
-        public T Id { get; set; }
         [MaxLength(500), Display(Name = "توضیحات : ")]
         public string Description { get; set; }
 
         [MaxLength(50), Display(Name = "ایجادکننده:")]
         public string InsertBy { get; set; }
         [Display(Name = "زمان ایجاد:")]
-        [DefaultValue("CONVERT(datetime,GetDate())")]
+        [DefaultValue("GetDate()")]
         public DateTime? InsertDate { get; set; }
 
 
@@ -30,7 +28,10 @@ namespace Entities.BaseEntities
         [Display(Name = "زمان حذف:")]
         public DateTime? DeleteDate { get; set; }
 
-        [DefaultValue(1), Display(Name = "وضعیت فعال / غیر فعال")]
+        [DefaultValue("1"), Display(Name = "وضعیت فعال / غیر فعال")]
         public bool IsActive { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

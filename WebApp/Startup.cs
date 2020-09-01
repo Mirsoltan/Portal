@@ -17,6 +17,10 @@ using IocConfig.Api.Swagger;
 using Services;
 using ViewModels.DynamicAccess;
 using ViewModels.Settings;
+using Common.DateTimeControl;
+using Microsoft.AspNetCore.Identity;
+using Entities.identity;
+using IocConfig.AutoMapper;
 
 namespace WebApp
 {
@@ -31,9 +35,6 @@ namespace WebApp
             Configuration = configuration;
             SiteSettings = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
         }
-
-
-
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -57,16 +58,24 @@ namespace WebApp
                 (Configuration.GetConnectionString("SqlServer")));
 
             services.AddCustomServices();
+
+
+
             services.AddCustomIdentityServices();
-            //services.AddAutoMapper();
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddScheduler();
             services.AddApiVersioning();
             services.AddSwagger();
             services.AddCustomAuthentication(SiteSettings);
             services.ConfigureWritable<SiteSettings>(Configuration.GetSection("SiteSettings"));
+
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(ConstantPolicies.DynamicPermission, policy => policy.Requirements.Add(new DynamicPermissionRequirement()));
+                options.AddPolicy(
+                    ConstantPolicies.DynamicPermission,
+                    policy => policy.Requirements.Add(new DynamicPermissionRequirement()));
             });
 
             services.ConfigureApplicationCookie(options =>
@@ -83,6 +92,8 @@ namespace WebApp
                     option.Cookie.HttpOnly = true;
                 }
             );
+
+            services.AddTransient<IConvertDates, ConvertDates>();
 
             services.AddMvc();
         }
@@ -122,20 +133,20 @@ namespace WebApp
 
             var provider = app.ApplicationServices;
 
-            provider.UseScheduler(scheduler =>
-            {
-                //scheduler.Schedule<SendWeeklyMessage>().Cron("29 20 * * 5"); //UTC Time
-            });
+            //provider.UseScheduler(scheduler =>
+            //{
+            //    //scheduler.Schedule<SendWeeklyMessage>().Cron("29 20 * * 5"); //UTC Time
+            //});
 
-            app.Use(async (context, next) =>
-            {
-                await next();
-                if (context.Response.StatusCode == 404)
-                {
-                    context.Request.Path = "/home/error404";
-                    await next();
-                }
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
+            //    if (context.Response.StatusCode == 404)
+            //    {
+            //        context.Request.Path = "/home/error404";
+            //        await next();
+            //    }
+            //});
 
             app.UseSwaggerAndUI();
             app.UseRouting();

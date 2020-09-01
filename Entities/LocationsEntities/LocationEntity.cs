@@ -1,58 +1,64 @@
-﻿using Entities.BaseEntities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Entities.LocationsEntities
 {
-    public class LocationEntity : BaseEntities<int>
+    public class Location
     {
-        public int OrbitId { get; set; }
-        public Orbit Orbit { get; set; }
-
-
-        [Display(Name ="نام بخش")]
-        public string Name { get; set; }
-        public string Title { get; set; }
-        public LocationRequestType LocationRequestType { get; set; }
-        public int LocationCategoryId { get; set; }
-        public LocationCategory LocationCategory { get; set; }
-        public string strIcon { get; set; }
-
-        public int LocationEntityID { get; set; }
-        public LocationEntity subLocationEntities { get; set; }
-    }
-
-    public class LocationCategory : BaseEntities<int>
-    {
-        public List<LocationEntity> LocationEntities { get; set; }
-        public string Title { get; set; }
-    }
-
-
-    /// <summary>
-    /// نوع بخش
-    /// پذیرنده = 1 
-    /// درخواست کننده = 2
-    /// در حالت اول هر دو حالت متصور است
-    /// </summary>
-    public enum LocationRequestType
-    {
-        [Display(Name = "پذیرنده")]
-        Recepter = 1,
-        [Display(Name = "درخواست کننده")]
-        Demander = 2
+        [Key]
+        public int LocationID { get; set; }
+        public string LocationName { get; set; }
+        public int? ParentLocationID { get; set; }
+        public Location location { get; set; }
+        public List<Location> LocationS { get; set; }
     }
 
     /// <summary>
-    /// انواع بخش
+    /// درجه ارزشیابی مرکز
     /// </summary>
-    public enum LocationCategory1
+    public enum LocationDegreeType
     {
-        [Display(Name = "بخش درمانی")]
-        MedicalLocation = 1,
-        [Display(Name = "بخش اداری")]
-        OfficeLocation = 2
+        Illustrious = 0,
+        First = 1,
+        Second = 2,
+        Third = 3,
     }
+
+
+    public enum BaseLocationType
+    {
+        Hospital = 1,
+        Infirmary = 2,
+        Ortez = 3,
+        Pharmacy = 4,
+        Imaging = 5,
+        Labratoary = 6,
+    }
+
+    
+    public enum SecondaryLocationType
+    {
+        Room = 100,
+        Bed = 101,
+
+        Clinic = 200,
+        HeartClinic=201,
+        EyeClinic=202,
+
+        //        Imaging = 500,
+        Rad = 501,
+        Sono = 502,
+        MRI = 503,
+        CT = 504,
+
+        Lab = 600,
+        BloodBank = 601, 
+
+        Phisio = 700,
+        Sleeping=800,
+
+    }
+
 }

@@ -1,6 +1,10 @@
-﻿using Data.UnitOfWork;
+﻿using Data.Repositories;
+using Data.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Api;
+using Services.Api.Contract;
 using Services.Contracts;
+using Services.CustomeServices;
 //using Data.Contracts;
 //using Data.Repositories;
 //using Data.UnitOfWork;
@@ -16,8 +20,12 @@ namespace IocConfig
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork,UnitOfWork>();
-            //services.AddScoped<IEmailSender, EmailSender>();
-            //services.AddTransient<IjwtService, jwtService>();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddTransient<IjwtService, jwtService>();
+
+            services.AddTransient<LocationRepository>();
+
+
             return services;
         }
     }

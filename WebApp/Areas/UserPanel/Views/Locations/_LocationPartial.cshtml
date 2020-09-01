@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ViewModels.Location.TreeViewLocation>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <input type="checkbox" value="@item.LocationID" name="CategoryID" /> @item.LocationName
+            @await Html.PartialAsync("_LocationPartial", item.SubLocations)
+        </li>
+    }
+
+</ul>

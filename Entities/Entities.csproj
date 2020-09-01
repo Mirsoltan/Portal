@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="MedicalEntities\" />
     <Folder Include="HISEntities\" />
-    <Folder Include="HelpDesk\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entities.Billboards
 {
-    public class OrganPolicy : BaseEntities<int>
+    public class OrganPolicy : GenericBaseEntities<int>
     {
         public string Title { get; set; }
     }

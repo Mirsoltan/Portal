@@ -19,229 +19,27 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.LocationsEntities.LocationCategory", b =>
+            modelBuilder.Entity("Entities.LocationsEntities.Location", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("LocationID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("InsertBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LocationCategories");
-                });
-
-            modelBuilder.Entity("Entities.LocationsEntities.LocationEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("InsertBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LocationCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LocationEntityID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LocationRequestType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrbitId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("strIcon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("subLocationEntitiesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationCategoryId");
-
-                    b.HasIndex("OrbitId");
-
-                    b.HasIndex("subLocationEntitiesId");
-
-                    b.ToTable("LocationEntities");
-                });
-
-            modelBuilder.Entity("Entities.LocationsEntities.Orbit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("InsertBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("OrbitName")
+                    b.Property<string>("LocationName")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200)
                         .IsUnicode(true);
 
-                    b.Property<int>("OrbitType")
+                    b.Property<int>("ParentLocationID")
                         .HasColumnType("int");
 
-                    b.Property<string>("TelNo1")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                    b.HasKey("LocationID");
 
-                    b.Property<string>("TelNo2")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                    b.HasIndex("ParentLocationID");
 
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orbits");
-                });
-
-            modelBuilder.Entity("Entities.SupervisionEntities.SupervisionEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Detailes")
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000)
-                        .IsUnicode(true);
-
-                    b.Property<string>("InsertBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200)
-                        .IsUnicode(true);
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Supervisions");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Entities.identity.Role", b =>
@@ -369,7 +167,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("RegisterDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CONVERT(DATETIME, CONVERT(VARCHAR(20),GetDate(), 120))");
+                        .HasDefaultValueSql("GetDate()");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -472,23 +270,13 @@ namespace Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Entities.LocationsEntities.LocationEntity", b =>
+            modelBuilder.Entity("Entities.LocationsEntities.Location", b =>
                 {
-                    b.HasOne("Entities.LocationsEntities.LocationCategory", "LocationCategory")
-                        .WithMany("LocationEntities")
-                        .HasForeignKey("LocationCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Entities.LocationsEntities.Location", "location")
+                        .WithMany("Locations")
+                        .HasForeignKey("ParentLocationID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Entities.LocationsEntities.Orbit", "Orbit")
-                        .WithMany("locationEntities")
-                        .HasForeignKey("OrbitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.LocationsEntities.LocationEntity", "subLocationEntities")
-                        .WithMany()
-                        .HasForeignKey("subLocationEntitiesId");
                 });
 
             modelBuilder.Entity("Entities.identity.RoleClaim", b =>

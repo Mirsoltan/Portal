@@ -6,13 +6,13 @@ using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using Services.Contracts;
-using Entities.identity;
-using Common;
-using Data;
-using ViewModels.Settings;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Services.Contracts;
+using ViewModels.Settings;
+using Data;
+using Common;
+using Entities.identity;
 using ViewModels.DynamicAccess;
 
 namespace Services.Identity
@@ -100,8 +100,7 @@ namespace Services.Identity
                 var adminRoleResult = await _roleManager.CreateAsync(adminRole);
                 if (adminRoleResult == IdentityResult.Failed())
                 {
-                    _logger.LogError($"{thisMethodName}: adminRole CreateAsync failed. " +
-                        $"{adminRoleResult.DumpErrors()}");
+                    _logger.LogError($"{thisMethodName}: adminRole CreateAsync failed. {adminRoleResult.DumpErrors()}");
                     return IdentityResult.Failed();
                 }
             }
@@ -127,8 +126,7 @@ namespace Services.Identity
             var adminUserResult = await _applicationUserManager.CreateAsync(adminUser, password);
             if (adminUserResult == IdentityResult.Failed())
             {
-                _logger.LogError($"{thisMethodName}: adminUser CreateAsync failed. " +
-                    $"{adminUserResult.DumpErrors()}");
+                _logger.LogError($"{thisMethodName}: adminUser CreateAsync failed. {adminUserResult.DumpErrors()}");
                 return IdentityResult.Failed();
             }
 
@@ -142,16 +140,14 @@ namespace Services.Identity
             var addToRoleResult = await _applicationUserManager.AddToRoleAsync(adminUser, adminRole.Name);
             if (addToRoleResult == IdentityResult.Failed())
             {
-                _logger.LogError($"{thisMethodName}: adminUser AddToRoleAsync failed. " +
-                    $"{addToRoleResult.DumpErrors()}");
+                _logger.LogError($"{thisMethodName}: adminUser AddToRoleAsync failed. {addToRoleResult.DumpErrors()}");
                 return IdentityResult.Failed();
             }
 
             var addToClaimsResult = await _applicationUserManager.AddClaimsAsync(adminUser, new List<Claim> { new Claim(ConstantPolicies.DynamicPermissionClaimType, "Admin:DynamicAccess:Index"), new Claim(ConstantPolicies.DynamicPermissionClaimType, "Admin:UserManager:Index") });
             if (addToClaimsResult == IdentityResult.Failed())
             {
-                _logger.LogError($"{thisMethodName}: adminUser AddToClaimsAsync failed." +
-                    $" {addToClaimsResult.DumpErrors()}");
+                _logger.LogError($"{thisMethodName}: adminUser AddToClaimsAsync failed. {addToClaimsResult.DumpErrors()}");
                 return IdentityResult.Failed();
             }
 
