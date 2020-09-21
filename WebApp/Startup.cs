@@ -21,6 +21,7 @@ using Common.DateTimeControl;
 using Microsoft.AspNetCore.Identity;
 using Entities.identity;
 using IocConfig.AutoMapper;
+using ReflectionIT.Mvc.Paging;
 
 namespace WebApp
 {
@@ -55,7 +56,7 @@ namespace WebApp
 
             services.AddDbContext<PortalDbContext>(
                 options => options.UseSqlServer
-                (Configuration.GetConnectionString("SqlServer")));
+                (Configuration.GetConnectionString("SqlServer1")));
 
             services.AddCustomServices();
 
@@ -95,6 +96,14 @@ namespace WebApp
 
             services.AddTransient<IConvertDates, ConvertDates>();
 
+            
+            services.AddPaging(options => {
+                options.ViewName = "Bootstrap4";
+                options.HtmlIndicatorDown = "<i class='fa fa-sort-amount-down'></i>";
+                options.HtmlIndicatorUp = "<i class='fa fa-sort-amount-up'></i>";
+            });
+
+
             services.AddMvc();
         }
 
@@ -109,10 +118,10 @@ namespace WebApp
 
             app.UseWhen(context => !context.Request.Path.StartsWithSegments("/api"), appBuilder =>
             {
-                if (env.IsDevelopment())
+                //if (env.IsDevelopment())
                     appBuilder.UseDeveloperExceptionPage();
-                else
-                    appBuilder.UseExceptionHandler("/Home/Error");
+                //else
+                //    appBuilder.UseExceptionHandler("/Home/Error");
             });
 
 

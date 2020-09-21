@@ -15,6 +15,7 @@ using Common;
 using Entities.identity;
 //using AutoMapper;
 using System.Linq.Dynamic.Core;
+using Entities.Person;
 
 namespace Services.Identity
 {
@@ -103,7 +104,7 @@ namespace Services.Identity
                 LockoutEnd = user.LockoutEnd,
                 PhoneNumberConfirmed = user.PhoneNumberConfirmed,
                 TwoFactorEnabled = user.TwoFactorEnabled,
-                Gender = user.Gender,
+                GenderName = user.Gender.ToString(),
             }).FirstOrDefaultAsync();
         }
 
@@ -138,7 +139,7 @@ namespace Services.Identity
                       IsActive = user.IsActive,
                       Image = user.Image,
                       Bio = user.Bio,
-                      PersianBirthDate = user.BirthDate.ConvertMiladiToShamsi("yyyy/MM/dd"),
+                      //PersianBirthDate = user.BirthDate.ConvertMiladiToShamsi("yyyy/MM/dd"),
                       PersianRegisterDateTime = user.RegisterDateTime.ConvertMiladiToShamsi("yyyy/MM/dd ساعت HH:mm:ss"),
                       GenderName = user.Gender == GenderType.Male ? "مرد" : "زن",
                       RoleId = user.Roles.Select(r => r.Role.Id).FirstOrDefault(),

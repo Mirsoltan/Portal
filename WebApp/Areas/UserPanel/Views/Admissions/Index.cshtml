@@ -1,0 +1,334 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ViewModels.HIS.AdmissionViewModel>
+@*@model IEnumerable<Entities.HISEntities.PatientEntity.Admission>*@
+@using ReflectionIT.Mvc.Paging
+@inject Common.DateTimeControl.IConvertDates _dt
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<link href="~/lib/comboTreePlugin/comboTreePlugin.css" rel="stylesheet" />
+<script src="~/lib/comboTreePlugin/comboTreePlugin.js"></script>
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                پذیرش بیماران
+            </div>
+            <div class="card-body">
+                <form class="px-4">
+                    <div class="row">
+                        <label class="ml-2">مکان پذیرش</label>
+                        <div class="col-md-4  padding-0px">
+                            <select class="select2" name="locationid" asp-items="ViewBag.LocationID"></select>
+                            @*<input type="text" id="justAnotherInputBox" name="locationid" placeholder="جستجو کنید" />*@
+
+                        </div>
+                        <div class="padding-0px">
+                            <input type="submit" value="بازخوانی" class="btn btn-info float-left" />
+                        </div>
+                        <div>
+                            <a class="btn btn-success mr-3 " asp-action="Create">بیمار جدید</a>
+                        </div>
+
+
+                        @if (ViewBag.Search == true)
+                        {
+                            <div class="col-md-4">
+                                <a asp-action="Index" class="float-left"><i class="fa fa-arrow-circle-left"></i>  بازگشت به لیست امروز   </a>
+                            </div>
+                        }
+
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            @*<div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> جستجو</button>
+                                        </span>
+                                        <input id="input-group-1" name="input1-group2" class="form-control" placeholder="نام بیمار را واردکنید ..." type="text">
+                                    </div>
+                                </div>*@
+
+                        </div>
+                    </div>
+
+                    <p>
+                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            جستجوی پیشرفته
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">نام</label>
+                                        <input id="firstname" name="firstname" class="form-control" placeholder="نام">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">نام خانوادگی</label>
+                                        <input id="lastname" name="lastname" class="form-control" placeholder="نام خانوادگی">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">پزشک</label>
+                                        <select id="pracid" name="pracid" class="select2 js-states form-control" asp-items="ViewBag.PractitionerID">
+                                            <option> یک مورد انتخاب نمایید ...  </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">تاریخ مراجعه</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">تاریخ ترخیص</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="submit" value="جستجو" class="btn btn-success float-left" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row mr-1">
+                                        <label class="ml-2">تعداد ردیف</label>
+                                        <div class="col-md-4  padding-0px">
+                                            <select class="select2" name="row" asp-items="@ViewBag.RowID"></select>
+                                        </div>
+                                        <div class="col-md-3 padding-0px">
+                                            <input type="submit" value="نمایش بده" class="btn btn-primary float-left" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-light">
+                لیست بیماران
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        @if (ViewBag.Msg != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                @ViewBag.Msg
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>@Html.SortableHeaderFor(m => m.FirstName, "FirstName")</th>
+                                <th>@Html.SortableHeaderFor(m => m.LastName, "LastName")</th>
+                                <th>@Html.SortableHeaderFor(m => m.PatientID)</th>
+                                <th>@Html.SortableHeaderFor(m => m.Practitioners, "Practitioners")</th>
+                                <th>@Html.SortableHeaderFor(m => m.DateIn, "DateIn")</th>
+                                <th>@Html.SortableHeaderFor(m => m.DateOut, "DateOut")</th>
+                                <th>@Html.SortableHeaderFor(m => m.Locations, "Locations")</th>
+                                <th>@Html.SortableHeaderFor(m => m.AdmissionStatus, "AdmissionStatus")</th>
+                                <th>@Html.SortableHeaderFor(m => m.Users, "Users")</th>
+                                <th>حساب</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = ViewBag.NumOfRow;}
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@i</td>
+
+                                    <td>@item.FirstName </td> <!-- نام بیمار-->
+                                    <td>@item.LastName </td> <!-- نام بیمار-->
+                                    <td>@item.PatientID </td> <!-- نام بیمار-->
+
+                                    <td>@item.Practitioners </td>
+                                    <td class="text-center">@_dt.ConvertMiladiToShamsi(item.DateIn, "yyyy/MM/dd")</td>
+                                    <td class="text-center">@(item.DateOut!=null? _dt.ConvertMiladiToShamsi((DateTime)item.DateOut, "yyyy/MM/dd") :"")</td>
+                                    <td class="text-nowrap">@item.Locations</td>
+                                    <td class="text-nowrap">@item.AdmissionStatus</td>
+                                    <td class="text-nowrap">@item.Users</td>
+
+                                    <td class="text-center">
+                                        @if (item.UserID == 1)
+                                        {
+                                            <label class="badge badge-success btn-block">بدهکار</label>
+                                        }
+
+                                        else
+                                        {
+                                            <label class="badge badge-info btn-block">تسویه شده </label>
+                                        }
+
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a asp-action="Details" asp-route-id="@item.AdmissionID" class="btn btn-info btn-icon"><i class="fa fa-eye text-white"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.AdmissionID" class="btn btn-success btn-icon"><i class="fa fa-edit text-white"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.AdmissionID" class="btn btn-danger btn-icon"><i class="fa fa-trash text-white"></i></a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+
+                        </tbody>
+                    </table>
+
+                    <nav>
+                        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+                    </nav>
+
+                    @*<nav>
+                            <vc:pager paging-list="@Model"></vc:pager>
+                        </nav>*@
+
+
+                    @*<nav class="text-center">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">قبلی</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">بعدی</a>
+                                </li>
+                            </ul>
+                        </nav>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var SampleJSONData = @Html.Raw(Json.Serialize(ViewBag.LocationsComboTree));
+    var comboTree2;
+
+jQuery(document).ready(function($) {
+		comboTree2 = $('#justAnotherInputBox').comboTree({
+			source : SampleJSONData,
+			isMultiple: false
+		});
+});
+
+</script>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AdmissionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdmissionStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Practitioners)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)  @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctors)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdmissionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdmissionStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Users)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Practitioners)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Doctors)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AdmissionID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.AdmissionID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AdmissionID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

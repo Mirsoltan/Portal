@@ -1,0 +1,36 @@
+﻿@using Common
+@addTagHelper*,Portal
+
+<li class="nav-item nav-dropdown">
+    <a href="#" class="nav-link nav-dropdown-toggle">
+        <i class="icon icon-target"></i> مدیریت بیماران <i class="fa fa-caret-left"></i>
+    </a>
+    <ul class="nav-dropdown-items">
+        <ul>
+            <li class="nav-item">
+                <security-trimming asp-action="Create" asp-controller="Patients" asp-area="UserPanel">
+                    <a class="nav-link" asp-action="Index" asp-controller="Patients" asp-area="UserPanel">
+                        <i class="ni ni-settings-gear-65 text-suceess"></i> ایجاد بیمار
+                    </a>
+                </security-trimming>
+            </li>
+            <li class="nav-item">
+                <security-trimming asp-action="Index" asp-controller="Admissions" asp-area="UserPanel">
+                    <a class="nav-link" asp-action="Index" asp-controller="Admissions" asp-area="UserPanel">
+                        <i class="ni ni-settings-gear-65 text-suceess"></i> پذیرش درمانگاه
+                    </a>
+                </security-trimming>
+            </li>
+
+
+            @*<li class="nav-item">
+            <a class="nav-link" asp-action="Profile" asp-controller="Manage" asp-route-userId="@User.Identity.GetUserId()">
+                <i class="ni ni-circle-08 text-pink"></i> نمایه من
+            </a>
+        </li>*@
+
+        </ul>
+    </ul>
+</li>
+
+

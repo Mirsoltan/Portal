@@ -32,22 +32,22 @@ namespace Services.Identity
             base(store, roleValidators, keyNormalizer, errors, logger)
         {
             _errors = errors;
-            //_errors.CheckArgumentIsNull(nameof(_errors));
+            _errors.CheckArgumentIsNull(nameof(_errors));
 
             _keyNormalizer = keyNormalizer;
-            //_keyNormalizer.CheckArgumentIsNull(nameof(_keyNormalizer));
+            _keyNormalizer.CheckArgumentIsNull(nameof(_keyNormalizer));
 
             _logger = logger;
-            //_logger.CheckArgumentIsNull(nameof(_logger));
+            _logger.CheckArgumentIsNull(nameof(_logger));
 
             _store = store;
-            //_store.CheckArgumentIsNull(nameof(_store));
+            _store.CheckArgumentIsNull(nameof(_store));
 
             _roleValidators = roleValidators;
-            //_roleValidators.CheckArgumentIsNull(nameof(_roleValidators));
+            _roleValidators.CheckArgumentIsNull(nameof(_roleValidators));
 
             _userManager = userManager;
-            //_userManager.CheckArgumentIsNull(nameof(_userManager));
+            _userManager.CheckArgumentIsNull(nameof(_userManager));
         }
 
 
@@ -157,5 +157,7 @@ namespace Services.Identity
 
             return roles;
         }
+
+        
     }
 }

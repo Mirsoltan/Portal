@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Entities.Person;
 
 namespace ViewModels.Manage
 {
@@ -23,7 +24,7 @@ namespace ViewModels.Manage
         public string UserName { get; set; }
 
         [Display(Name = "ایمیل")]
-        [Required(ErrorMessage = "وارد نمودن {0} الزامی است.")]
+        //[Required(ErrorMessage = "وارد نمودن {0} الزامی است.")]
         [EmailAddress(ErrorMessage = "ایمیل وارد شده صحیح نمی باشد.")]
         public string Email { get; set; }
 
@@ -40,7 +41,7 @@ namespace ViewModels.Manage
         public string LastName { get; set; }
 
         [Display(Name = "تاریخ تولد")]
-        public DateTime? BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Display(Name = "تاریخ تولد")]
         [Required(ErrorMessage = "وارد نمودن {0} الزامی است.")]
@@ -48,10 +49,10 @@ namespace ViewModels.Manage
 
         [Display(Name = "جنسیت")]
         [Required(ErrorMessage = "انتخاب {0} الزامی است.")]
-        public GenderType? Gender { get; set; }
+        public GenderType Gender { get; set; }
 
-        [Display(Name = "معرفی")]
-        public string Bio { get; set; }
+        //[Display(Name = "معرفی")]
+        //public string Bio { get; set; }
 
     }
 }

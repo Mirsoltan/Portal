@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Entities.HelpDesk
@@ -13,9 +14,13 @@ namespace Entities.HelpDesk
     /// </summary>
     public enum RequestStatusType
     {
+        [Display(Name = "درخواست شده")]
         Requested = 1,
+        [Display(Name = "در حال انجام")]
         Doing = 2,
+        [Display(Name = "انجام شده")]
         Done = 3,
+        [Display(Name = "رد شده")]
         Rejected = 5,
     }
 
@@ -28,9 +33,13 @@ namespace Entities.HelpDesk
     /// </summary>
     public enum RequestPriorityType
     {
+        [Display(Name ="کم")]
         Low = 1,
+        [Display(Name = "عادی")]
         Normal = 2,
+        [Display(Name = "فوری")]
         High = 3,
+        [Display(Name = "بحرانی")]
         Urgent = 4,
     }
 
@@ -41,7 +50,9 @@ namespace Entities.HelpDesk
     /// </summary>
     public enum RequestRefer
     {
+        [Display(Name = "ارجاع شده")]
         NoneRefered = 0,
+        [Display(Name = "ارجاع نشده")]
         Refered = 1,
     }
 }

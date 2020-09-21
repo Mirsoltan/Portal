@@ -20,6 +20,7 @@ namespace Services.Contracts
         Task<IdentityResult> CreateAsync(Role role);
         Task<IdentityResult> DeleteAsync(Role role);
         Task<Role> FindByIdAsync(string roleId);
+        
         Task<Role> FindByNameAsync(string roleName);
         string NormalizeKey(string key);
         Task<bool> RoleExistsAsync(string roleName);

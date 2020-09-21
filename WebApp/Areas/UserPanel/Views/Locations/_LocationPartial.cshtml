@@ -1,12 +1,65 @@
 ﻿@model IEnumerable<ViewModels.Location.TreeViewLocation>
 
+
+
 <ul>
+    @{string imgsrc = ""; }
+
     @foreach (var item in Model)
     {
-        <li>
-            <input type="checkbox" value="@item.LocationID" name="CategoryID" /> @item.LocationName
+        int type = (item.SecondaryLocationType.HasValue ? (int)item.SecondaryLocationType : 0);
+        switch (type)
+        {
+
+            case 0:
+                imgsrc = "/medicalicons/hospital-2.png";
+                break;
+            case 1:
+                imgsrc = "/medicalicons/hospital.png";
+                break;
+            case 2:
+                imgsrc = "/medicalicons/infirmary.png";
+                break;
+            case 3:
+                imgsrc = "/medicalicons/ortez.png";
+                break;
+            case 4:
+                imgsrc = "/medicalicons/pharmacy.png";
+                break;
+            case 5:
+                imgsrc = "/medicalicons/rad.png";
+                break;
+
+
+
+
+            case 100:
+                imgsrc = "/medicalicons/ward.png";
+                break;
+            case 101:
+                imgsrc = "/medicalicons/room.png";
+                break;
+            case 102:
+                imgsrc = "/medicalicons/bed.png";
+                break;
+            case 200:
+                imgsrc = "/medicalicons/clinic.png";
+                break;
+            case 201:
+                imgsrc = "/medicalicons/heartclinic.png";
+                break;
+            case 501:
+                imgsrc = "/medicalicons/rad.png";
+                break;
+            default:
+                imgsrc = "/medicalicons/default.png";
+                break;
+        }
+        <li> <img src="@imgsrc" width="50" height="50">
+            <input type="checkbox" value="@item.LocationID" name="LocationID" tabindex="@type" /> @item.LocationName
             @await Html.PartialAsync("_LocationPartial", item.SubLocations)
         </li>
     }
 
 </ul>
+

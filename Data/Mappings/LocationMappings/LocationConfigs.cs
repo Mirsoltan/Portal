@@ -16,9 +16,9 @@ namespace Data.Mappings.LocationMapping
         }
     }
 
-    public class LocationMapping : IEntityTypeConfiguration<Location>
+    public class LocationMapping : IEntityTypeConfiguration<Locations>
     {
-        public void Configure(EntityTypeBuilder<Location> builder)
+        public void Configure(EntityTypeBuilder<Locations> builder)
         {
             builder.Property(n => n.LocationName).HasMaxLength(200).IsRequired().IsUnicode();
             

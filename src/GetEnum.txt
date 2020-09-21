@@ -1,0 +1,7 @@
+ asp-items="Html.GetEnumSelectList<Entities.HISEntities.PatientEntity.AdmissionType>()">
+                    <option value="">انتخاب کنید</option>
+ 
+
+            ViewBag.PractitionerID = new SelectList(_context.Users.Where(w => w.AssistType == AssistType.Practitioner).Select
+                (x => new PersonFullName { PersonID = x.Id, FullName = x.LastName + ' ' + x.FirstName + ' ' })
+                , "PersonID", "FullName");

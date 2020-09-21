@@ -11,7 +11,6 @@ namespace Data.HelpDesk
         public static void ApplyRequestWardConfig(this ModelBuilder modelbuilder)
         {
             modelbuilder.ApplyConfiguration(new RequestWardMapping());
-
         }
     }
 }

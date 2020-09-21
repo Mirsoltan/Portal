@@ -16,23 +16,27 @@ namespace Entities.HelpDesk
         [Key]
         public int RequestWardID { get; set; }
         public string Title { get; set; }
+
         public RequestStatusType RequestStatusType { get; set; }
         public RequestPriorityType RequestPriorityType { get; set; }
+
+
+
 
         /// <summary>
         /// درخواست کننده - فرستنده درخواست
         /// </summary>
         public int DemanderWardID { get; set; }
-        public Location DemanderWard { get; set; }
+        public Locations DemanderWard { get; set; }
         /// <summary>
         /// پذیرنده - گیرنده درخواست
         /// </summary>
         public int RecepterWardID { get; set; }
-        public Location RecepterWard { get; set; }
+        public Locations RecepterWard { get; set; }
 
+        public RequestWard requestWard { get; set; }
 
         public int? ParentRequestWardID { get; set; }
-        public RequestWard requestWard { get; set; }
         public List<RequestWard> ReferRequestWard { get; set; }
 
 

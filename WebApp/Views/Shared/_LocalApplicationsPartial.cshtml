@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Entities.HomeEntities.LocalApplications>
+
+
+
+<style>
+    .card-custom {
+        max-width: 150px;
+    }
+
+    .imgx {
+        width: 120px;
+        height: 120px;
+        padding: 4px 4px 4px 4px;
+    }
+</style>
+
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        bool islocalapp = item.IsLocalApp;
+        string apppath = (item.IsLocalApp ? "webrun:" + item.ApplicationPath : item.ApplicationPath);
+        <div class="card card-custom mx-1 mb-3">
+            <a href="@apppath" target="_blank" class="text-center">
+                <img src="~/images/LocalApplications/@item.ImageName" alt="" class="card-img imgx" />
+                <br />
+                @item.Title
+            </a>
+            <p class="text-center text-info">
+                @item.Description
+            </p>
+
+        </div>
+    }
+</div>

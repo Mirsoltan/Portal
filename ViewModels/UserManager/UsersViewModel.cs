@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Entities.Person;
 
 namespace ViewModels.UserManager
 {
@@ -29,7 +30,7 @@ namespace ViewModels.UserManager
         public string UserName { get; set; }
         
         [Display(Name ="ایمیل"), JsonPropertyName("ایمیل")]
-        [Required(ErrorMessage = "وارد نمودن {0} الزامی است.")]
+        //[Required(ErrorMessage = "وارد نمودن {0} الزامی است.")]
         [EmailAddress(ErrorMessage ="ایمیل وارد شده صحیح نمی باشد.")]
         public string Email { get; set; }
 
@@ -56,7 +57,7 @@ namespace ViewModels.UserManager
         public string LastName { get; set; }
 
         [Display(Name = "تاریخ تولد"),JsonIgnore()]
-        public DateTime? BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Display(Name = "تاریخ تولد"), JsonPropertyName("تاریخ تولد")]
         [Required(ErrorMessage = "وارد نمودن {0} الزامی است.")]
@@ -73,7 +74,7 @@ namespace ViewModels.UserManager
 
         [Display(Name = "جنسیت"),JsonIgnore]
         [Required(ErrorMessage = "انتخاب {0} الزامی است.")]
-        public GenderType? Gender { get; set; }
+        public GenderType Gender { get; set; }
 
         [JsonPropertyName("جنسیت")]
         public string GenderName { get; set; }

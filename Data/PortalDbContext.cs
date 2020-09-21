@@ -1,5 +1,16 @@
-﻿using Data.IdentityMappings;
+﻿using Data.HelpDesk;
+using Data.HIS.AdmissionMappings;
+using Data.HIS.PatientMappings;
+using Data.HIS.PatientServiceMappings;
+using Data.HIS.PractitionerMappings;
+using Data.IdentityMappings;
+using Data.Mappings.HomeMappings;
 using Data.Mappings.LocationMapping;
+using Entities.HelpDesk;
+using Entities.HISEntities.PatientEntity;
+using Entities.HISEntities.PractitionerEntity;
+using Entities.HISEntities.ServicesEvents;
+using Entities.HomeEntities;
 using Entities.identity;
 using Entities.LocationsEntities;
 using Microsoft.AspNetCore.Identity;
@@ -32,15 +43,56 @@ namespace Data
             builder.ApplyLocationConfig();
             #endregion
 
-            #region RequestWard
+            #region LocalApplications
+            builder.ApplyLocalApplicationsConfig();
+            #endregion
 
+            #region RequestWard
+            builder.ApplyRequestWardConfig();
+            #endregion
+
+            #region His
+            #region Admission
+            builder.ApplyAdmissionConfig();
+            #endregion
+            #region Patient
+            builder.ApplyPatientConfig();
+            #endregion
+            #region Doctors
+            builder.ApplyDoctorsConfig();
+            #endregion
+            #region PatientServices
+
+            #endregion
             #endregion
         }
 
-        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<Locations> Locations { get; set; }
+        public virtual DbSet<LocalApplications> LocalApplications { get; set; }
 
         #region RequestWard
+        public virtual DbSet<RequestWard> RequestWard { get; set; }
+        #endregion
 
+
+        #region HIS
+
+        #region Doctors
+        public virtual DbSet<Doctors> Doctors { get; set; }
+        #endregion
+
+        #region Patient
+        public virtual DbSet<Patient> Patients { get; set; }
+        #endregion
+
+        #region Admission
+        public virtual DbSet<Admission> Admissions { get; set; }
+
+        #endregion
+        #region PatientServices
+        public virtual DbSet<MasterService> MasterServices { get; set; }
+        public virtual DbSet<MasterServiceGroupCategory> MasterServiceGroupCategory { get; set; }
+        #endregion
         #endregion
     }
 }

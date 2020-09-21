@@ -1,0 +1,186 @@
+﻿@model ViewModels.HIS.AdmissionCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+}
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+
+
+<h1>Create</h1>
+
+<h4>Admission</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="NationalCode" class="control-label" onclick=""></label>
+                <input asp-for="NationalCode" class="form-control" id="ncode" placeholder="کد ملی را وارد کنید و اینتر بزنید" onkeypress="Details(1)" />
+                <span asp-validation-for="NationalCode" class="text-danger"></span>
+            </div>
+            <div>
+                <a onclick="Details('1')" class="btn btn-info btn-icon"><i class="fa fa-eye text-white">نمایش جزئیات</i></a>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" value="مشخصات بیمار" readonly id="FullName" />
+            </div>
+
+            @*<div class="form-group">
+                    <label asp-for="AdmissionType" class="control-label"></label>
+                    <select asp-for="AdmissionType" class="form-control"></select>
+                    <span asp-validation-for="AdmissionType" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="DateIn" class="control-label"></label>
+                <input asp-for="DateIn" class="form-control" value="@DateTime.Now" readonly />
+                <span asp-validation-for="DateIn" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="DateOut" class="control-label"></label>
+                    <input asp-for="DateOut" class="form-control" />
+                    <span asp-validation-for="DateOut" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="AdmissionStatus" class="control-label"></label>
+                    <select asp-for="AdmissionStatus" class="form-control" asp-items="Html.GetEnumSelectList<Entities.HISEntities.PatientEntity.AdmissionStatus>()">
+                        <option value="">انتخاب کنید</option>
+
+                    </select>
+                    <span asp-validation-for="AdmissionStatus" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="UserID" class="control-label"></label>
+                    <select asp-for="UserID" class="form-control" asp-items="ViewBag.UserID"></select>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="PractitionerID" class="control-label"></label>
+                    <select asp-for="PractitionerID" class="form-control" asp-items="ViewBag.PractitionerID"></select>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="PatientID" class="control-label"></label>
+                <input asp-for="PatientID" class="form-control" id="PatientID" />
+                <span asp-validation-for="PatientID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocationID" class="control-label"></label>
+                <select asp-for="LocationID" class="form-control" asp-items="ViewBag.LocationID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PractitionerID" class="control-label"></label>
+                <select asp-for="PractitionerID" class="form-control" asp-items="ViewBag.PractitionerID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctorID" class="control-label"></label>
+                <select asp-for="DoctorID" class="form-control" asp-items="ViewBag.DoctorID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+<!-- Modal -->
+<div id="Modal1" class="modal fade " role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">    +++   </h4>
+            </div>
+            <div class="modal-body">
+                <p> --- </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success ml-2" data-dismiss="modal" id="getPtID" onclick="GetPatientID()">تایید</button>
+                <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+
+    //$(document).ready(function () {
+    //    $("#ncode").focusout(function () {
+    //        a = trim($("#ncode").val());
+    //        if (length.a == 10) {
+    //            alert(FindPatientx($("#ncode").val()).result);
+    //        }
+    //    });
+    //});
+
+
+    //$('#ncode').keydown(function (e) {
+    //        if (e.keyCode == 13) {
+    //            FindPatient(NationalCode);
+    //        }
+    //    })
+
+    function Details(id) {
+        $.ajax({
+            url: "PatientDetails/" + id,
+            type: "get",
+        }).done(function (result) {
+            // alert('adsfdsafdsa ');
+            //alert(result);
+            $("#Modal1").modal('show');
+            $(".modal-title").html('جزئیات اطلاعات بیمار');
+            $(".modal-body").html(result);
+            //alert('سلام ');
+        });
+    }
+
+    $('#getPtID').on('click', function (ev) {
+        $uploadCrop.croppie('result', {
+            type: 'base64',
+            format: 'jpeg',
+            size: { width: 740, height: 500 }
+        }).then(function (resp) {
+            $('#item-img-output').attr('src', resp);
+            $("#base64").val(resp.split(',')[1]);
+            $('#cropImagePop').modal('hide');
+        });
+    });
+
+    function Details1(id) {
+
+        //$.ajax({
+        //    url: "PatientDetails/" + id,
+        //    type: "get",
+        //}).done(function (result) {
+        //    alert('adsfdsafdsa ');
+        //    alert(result);
+        //    $("#myModal").modal('show');
+        //    $(".modal-title").html('جزئیات اطلاعات بیمار');
+        //    $(".modal-body").html(result);
+
+        //    alert('سلام ');
+        //});
+        //alert('سلام 2131');
+    }
+
+</script>

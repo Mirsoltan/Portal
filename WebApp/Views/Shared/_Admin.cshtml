@@ -1,11 +1,18 @@
 ﻿
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>پرتال داخلی</title>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script src="~/js/cheknationalcode.js"></script>
     <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
@@ -14,7 +21,7 @@
     <link href="/css/bootstrap-fileinput.css" rel="stylesheet" />
     <link href="/css/TreeView.css" rel="stylesheet" />
 </head>
-<body class="sidebar-fixed header-fixed">
+<body class="sidebar-fixed header-fixed" >
     <div class="page-wrapper">
         <nav class="navbar page-header">
             <div>
@@ -58,23 +65,20 @@
                                 <i class="icon icon-speedometer"></i> داشبورد
                             </a>
                         </li>
-                        <li class="nav-item nav-dropdown">
-                            <a href="#" class="nav-link nav-dropdown-toggle">
-                                <i class="icon icon-target"></i> مدیریت مراکز <i class="fa fa-caret-left"></i>
-                            </a>
-                            <ul class="nav-dropdown-items">
-                                <li class="nav-item">
-                                    <a href="layouts-normal.html" class="nav-link">
-                                        <i class="icon icon-target"></i> مشاهده مراکز
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="layouts-fixed-sidebar.html" class="nav-link">
-                                        <i class="icon icon-target"></i> افزودن مرکز جدید
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+
+                        @*<li class="nav-item">
+                                <a href="layouts-normal.html" class="nav-link">
+                                    <i class="icon icon-target"></i> مشاهده مراکز
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="layouts-fixed-sidebar.html" class="nav-link">
+                                    <i class="icon icon-target"></i> افزودن مرکز جدید
+                                </a>
+                            </li>*@
+
+                        @await Html.PartialAsync("_MasterAdmin")
+                        @await Html.PartialAsync("_UsersMenu")
                     </ul>
                 </nav>
             </div>
@@ -83,7 +87,31 @@
             </div>
         </div>
     </div>
-    <script src="/vendor/jquery/jquery.min.js"></script>
+    <!-- Modal -->
+    <div id="Modal1" class="modal fade bd-example-modal-lg" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">    +++   </h4>
+                </div>
+                <div class="modal-body">
+                    <p> --- </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="GetPatientID()" >تایید</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" >بستن</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
     <script src="/vendor/popper.js/popper.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="/vendor/chart.js/chart.min.js"></script>

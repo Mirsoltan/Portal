@@ -15,16 +15,372 @@ namespace Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.LocationsEntities.Location", b =>
+            modelBuilder.Entity("Entities.HISEntities.PatientEntity.Admission", b =>
+                {
+                    b.Property<int>("AdmissionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AdmissionStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AdmissionType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateIn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int>("DoctorID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocationID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PractitionerID")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AdmissionID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.HasIndex("LocationID");
+
+                    b.HasIndex("PatientID");
+
+                    b.HasIndex("PractitionerID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Admission","HIS");
+                });
+
+            modelBuilder.Entity("Entities.HISEntities.PatientEntity.Patient", b =>
+                {
+                    b.Property<int>("PatientID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(700)")
+                        .HasMaxLength(700);
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BirthPlace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int>("EducationLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FatherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HomeTel")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("MaritalStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
+
+                    b.Property<string>("NationalCode")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("TelNo1")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
+
+                    b.HasKey("PatientID");
+
+                    b.ToTable("Patient","HIS");
+                });
+
+            modelBuilder.Entity("Entities.HISEntities.PractitionerEntity.Doctors", b =>
+                {
+                    b.Property<int>("DoctorsID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(700)")
+                        .HasMaxLength(700);
+
+                    b.Property<string>("BirthPlace")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("FatherName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HomeTel")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Mobile")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
+
+                    b.Property<string>("NationalCode")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("PractitionerJobCategory")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PractitionerSpeciality")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegisterationNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("TelNo1")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
+
+                    b.HasKey("DoctorsID");
+
+                    b.ToTable("Doctors","HIS");
+                });
+
+            modelBuilder.Entity("Entities.HISEntities.ServicesEvents.MasterService", b =>
+                {
+                    b.Property<int>("MasterServiceID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MSParentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MasterServiceName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MasterServicesMasterServiceID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NationalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServiceGroupCategoryID")
+                        .HasColumnType("int");
+
+                    b.HasKey("MasterServiceID");
+
+                    b.HasIndex("MasterServicesMasterServiceID");
+
+                    b.HasIndex("ServiceGroupCategoryID");
+
+                    b.ToTable("MasterServices");
+                });
+
+            modelBuilder.Entity("Entities.HISEntities.ServicesEvents.MasterServiceGroupCategory", b =>
+                {
+                    b.Property<int>("MSGID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoryMSGID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MSCategoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MSGParentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("MSGID");
+
+                    b.HasIndex("CategoryMSGID");
+
+                    b.ToTable("MasterServiceGroupCategory");
+                });
+
+            modelBuilder.Entity("Entities.HelpDesk.RequestWard", b =>
+                {
+                    b.Property<int>("RequestWardID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DemanderWardID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000)
+                        .IsUnicode(true);
+
+                    b.Property<int>("IsRefered")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LocationsLocationID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentRequestWardID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecepterWardID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestPriorityType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestStatusType")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500)
+                        .IsUnicode(true);
+
+                    b.HasKey("RequestWardID");
+
+                    b.HasIndex("DemanderWardID");
+
+                    b.HasIndex("LocationsLocationID");
+
+                    b.HasIndex("ParentRequestWardID");
+
+                    b.HasIndex("RecepterWardID");
+
+                    b.ToTable("RequestWard","HDIS");
+                });
+
+            modelBuilder.Entity("Entities.HomeEntities.LocalApplications", b =>
+                {
+                    b.Property<int>("LocalAppID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("image");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLocalApp")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.HasKey("LocalAppID");
+
+                    b.ToTable("LocalApplications","HIS");
+                });
+
+            modelBuilder.Entity("Entities.LocationsEntities.Locations", b =>
                 {
                     b.Property<int>("LocationID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IconAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LocationName")
                         .IsRequired()
@@ -32,7 +388,13 @@ namespace Data.Migrations
                         .HasMaxLength(200)
                         .IsUnicode(true);
 
-                    b.Property<int>("ParentLocationID")
+                    b.Property<int?>("ParentLocationID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SecondaryLocationType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("baseLocationType")
                         .HasColumnType("int");
 
                     b.HasKey("LocationID");
@@ -71,7 +433,7 @@ namespace Data.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AppRoles");
+                    b.ToTable("AppRoles","UIS");
                 });
 
             modelBuilder.Entity("Entities.identity.RoleClaim", b =>
@@ -94,7 +456,7 @@ namespace Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AppRoleClaim");
+                    b.ToTable("AppRoleClaim","UIS");
                 });
 
             modelBuilder.Entity("Entities.identity.User", b =>
@@ -107,15 +469,30 @@ namespace Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Bio")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(700)")
+                        .HasMaxLength(700);
 
-                    b.Property<DateTime?>("BirthDate")
+                    b.Property<int>("AssistType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("BirthPlace")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EducationLevel")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
@@ -124,11 +501,20 @@ namespace Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FatherName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
+
+                    b.Property<string>("HomeTel")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -139,7 +525,8 @@ namespace Data.Migrations
                         .HasDefaultValueSql("1");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -147,19 +534,31 @@ namespace Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("MaritalStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mobile")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
+
+                    b.Property<string>("NationalCode")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -169,15 +568,23 @@ namespace Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GetDate()");
 
+                    b.Property<string>("RegisterationNo")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TelNo1")
+                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(11);
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -189,7 +596,7 @@ namespace Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AppUsers");
+                    b.ToTable("AppUsers","UIS");
                 });
 
             modelBuilder.Entity("Entities.identity.UserClaim", b =>
@@ -212,7 +619,7 @@ namespace Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AppUserClaim");
+                    b.ToTable("AppUserClaim","UIS");
                 });
 
             modelBuilder.Entity("Entities.identity.UserRole", b =>
@@ -227,7 +634,7 @@ namespace Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AppUserRole");
+                    b.ToTable("AppUserRole","UIS");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
@@ -270,13 +677,89 @@ namespace Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Entities.LocationsEntities.Location", b =>
+            modelBuilder.Entity("Entities.HISEntities.PatientEntity.Admission", b =>
                 {
-                    b.HasOne("Entities.LocationsEntities.Location", "location")
-                        .WithMany("Locations")
-                        .HasForeignKey("ParentLocationID")
+                    b.HasOne("Entities.HISEntities.PractitionerEntity.Doctors", "Doctors")
+                        .WithMany("Admissions")
+                        .HasForeignKey("DoctorID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Entities.LocationsEntities.Locations", "Locations")
+                        .WithMany("Admissions")
+                        .HasForeignKey("LocationID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.HISEntities.PatientEntity.Patient", "Patients")
+                        .WithMany("Admissions")
+                        .HasForeignKey("PatientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.identity.User", "Practitioners")
+                        .WithMany("Practitioners")
+                        .HasForeignKey("PractitionerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.identity.User", "Users")
+                        .WithMany("AdmissionUsers")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.HISEntities.ServicesEvents.MasterService", b =>
+                {
+                    b.HasOne("Entities.HISEntities.ServicesEvents.MasterService", "MasterServices")
+                        .WithMany("MServices")
+                        .HasForeignKey("MasterServicesMasterServiceID");
+
+                    b.HasOne("Entities.HISEntities.ServicesEvents.MasterServiceGroupCategory", "ServiceGroupCategory")
+                        .WithMany("MasterService")
+                        .HasForeignKey("ServiceGroupCategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.HISEntities.ServicesEvents.MasterServiceGroupCategory", b =>
+                {
+                    b.HasOne("Entities.HISEntities.ServicesEvents.MasterServiceGroupCategory", "Category")
+                        .WithMany("SubCategory")
+                        .HasForeignKey("CategoryMSGID");
+                });
+
+            modelBuilder.Entity("Entities.HelpDesk.RequestWard", b =>
+                {
+                    b.HasOne("Entities.LocationsEntities.Locations", "DemanderWard")
+                        .WithMany("DemanderWards")
+                        .HasForeignKey("DemanderWardID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.LocationsEntities.Locations", null)
+                        .WithMany("ReferRequestWards")
+                        .HasForeignKey("LocationsLocationID");
+
+                    b.HasOne("Entities.HelpDesk.RequestWard", "requestWard")
+                        .WithMany("ReferRequestWard")
+                        .HasForeignKey("ParentRequestWardID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Entities.LocationsEntities.Locations", "RecepterWard")
+                        .WithMany("RecepterWards")
+                        .HasForeignKey("RecepterWardID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.LocationsEntities.Locations", b =>
+                {
+                    b.HasOne("Entities.LocationsEntities.Locations", "location")
+                        .WithMany("LocationS")
+                        .HasForeignKey("ParentLocationID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Entities.identity.RoleClaim", b =>

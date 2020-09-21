@@ -1,4 +1,5 @@
-﻿using Data.Repositories;
+﻿using Data.HIS.Repositories;
+using Data.Repositories;
 using Data.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Api;
@@ -24,6 +25,7 @@ namespace IocConfig
             services.AddTransient<IjwtService, jwtService>();
 
             services.AddTransient<LocationRepository>();
+            services.AddTransient<AdmissionReposotories>();
 
 
             return services;

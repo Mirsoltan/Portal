@@ -30,16 +30,16 @@ namespace WebApp.Areas.UserPanel.Controllers
         {
             //var portalDbContext = _context.Locations.Include(l => l.location);
             //return View(await portalDbContext.ToListAsync());
-            var Locations = await (from c in _context.Locations
-                              where (c.ParentLocationID == null)
-                              select new TreeViewLocation
-                              { LocationID = c.LocationID, LocationName = c.LocationName }).ToListAsync();
+            //var Locations = await (from c in _context.Locations
+            //                  where (c.ParentLocationID == null)
+            //                  select new TreeViewLocation
+            //                  { LocationID = c.LocationID, LocationName = c.LocationName }).ToListAsync();
 
-            foreach (var item in Locations)
-            {
-                _repository.BindSubCategories(item);
-            }
-            HomeViewModel ViewModel = new HomeViewModel(Locations);
+            //foreach (var item in Locations)
+            //{
+            //    _repository.BindSubCategories(item);
+            //}
+            HomeViewModel ViewModel = new HomeViewModel(_repository.GetLocations());
 
             return View(ViewModel);
         }
@@ -75,7 +75,7 @@ namespace WebApp.Areas.UserPanel.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocationID,LocationName,ParentLocationID")] Location location)
+        public async Task<IActionResult> Create([Bind("LocationID,LocationName,ParentLocationID")] Locations location)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace WebApp.Areas.UserPanel.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LocationID,LocationName,ParentLocationID")] Location location)
+        public async Task<IActionResult> Edit(int id, [Bind("LocationID,LocationName,ParentLocationID")] Locations location)
         {
             if (id != location.LocationID)
             {

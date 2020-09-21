@@ -19,10 +19,59 @@
             </div>
             <div class="card-body">
                 <ul id="category" class="demo1">
+                    @{string imgsrc = "";}
                     @foreach (var item in Model.location)
                     {
-                        <li>
-                            <input type="checkbox" name="CategoryID" value="@item.LocationID" /> @item.LocationName
+                        int type = (item.baseLocationType.HasValue ? (int)item.baseLocationType : 0);
+                        switch (type)
+                        {
+                            case 0:
+                                imgsrc = "/medicalicons/hospital-2.png";
+                                break;
+                            case 1:
+                                imgsrc = "/medicalicons/hospital.png";
+                                break;
+                            case 2:
+                                imgsrc = "/medicalicons/infirmary.png";
+                                break;
+                            case 3:
+                                imgsrc = "/medicalicons/ortez.png";
+                                break;
+                            case 4:
+                                imgsrc = "/medicalicons/pharmacy.png";
+                                break;
+                            case 5:
+                                imgsrc = "/medicalicons/rad.png";
+                                break;
+
+
+
+
+                            case 100:
+                                imgsrc = "/medicalicons/ward.png";
+                                break;
+                            case 101:
+                                imgsrc = "/medicalicons/room.png";
+                                break;
+                            case 102:
+                                imgsrc = "/medicalicons/bed.png";
+                                break;
+                            case 200:
+                                imgsrc = "/medicalicons/clinic.png";
+                                break;
+                            case 201:
+                                imgsrc = "/medicalicons/bloodbank.png";
+                                break;
+                            case 501:
+                                imgsrc = "/medicalicons/rad.png";
+                                break;
+                            default:
+                                imgsrc = "/medicalicons/default.png";
+                                break;
+                        }
+                        <li> <img src="@imgsrc"  width="70" height="70">
+                            <input type="checkbox" name="LocationID" value="@item.LocationID" tabindex="@type" />
+                            @item.LocationName
                             @await Html.PartialAsync("_LocationPartial", item.SubLocations)
 
                         </li>
