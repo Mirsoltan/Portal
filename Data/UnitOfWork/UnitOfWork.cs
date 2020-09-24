@@ -1,4 +1,5 @@
-﻿using Data.Repositories;
+﻿using AutoMapper;
+using Data.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,21 @@ namespace Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private PortalDbContext _Context { get; }
-        //private IMapper _mapper;
+        public PortalDbContext _Context { get; }
+
+        private ILocationRepository _ILocationRepository;
+
+        private IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-
-        public UnitOfWork(PortalDbContext context, IConfiguration configuration)
+        public UnitOfWork(PortalDbContext context)
         {
             _Context = context;
-            //_mapper = mapper;
+        }
+        public UnitOfWork(PortalDbContext context, IConfiguration configuration, IMapper mapper)
+        {
+            _Context = context;
+            _mapper = mapper;
             _configuration = configuration;
         }
 
@@ -38,5 +45,19 @@ namespace Data.UnitOfWork
         {
             _Context.DisposeAsync();
         }
+
+        public ILocationRepository ILocationRepository
+        {
+            get
+                {
+                if (_ILocationRepository == null)
+                {
+                    _ILocationRepository = new LocationRepository(_Context);
+                }
+                return _ILocationRepository;
+            }
+        }
     }
 }
+
+

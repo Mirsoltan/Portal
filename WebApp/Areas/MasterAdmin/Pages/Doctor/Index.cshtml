@@ -1,0 +1,115 @@
+﻿@page
+@model WebApp.Areas.MasterAdmin.Pages.Doctor.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].PractitionerSpeciality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].PractitionerJobCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].RegisterationNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].NationalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].FatherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].BirthPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].HomeTel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].TelNo1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsList[0].Mobile)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DoctorsList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PractitionerSpeciality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PractitionerJobCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegisterationNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NationalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FatherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelNo1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.DoctorsID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.DoctorsID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.DoctorsID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

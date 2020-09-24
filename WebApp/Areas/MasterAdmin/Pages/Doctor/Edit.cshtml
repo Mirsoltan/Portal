@@ -1,0 +1,102 @@
+﻿@page
+@model WebApp.Areas.MasterAdmin.Pages.Doctor.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Doctors</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DoctoList.DoctorsID" />
+            <div class="form-group">
+                <label asp-for="DoctoList.PractitionerSpeciality" class="control-label"></label>
+                <select asp-for="DoctoList.PractitionerSpeciality" asp-items="Html.GetEnumSelectList<Entities.HISEntities.PractitionerEntity.PractitionerSpeciality>().ToList()" class="form-control"></select>
+                <span asp-validation-for="DoctoList.PractitionerSpeciality" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.PractitionerJobCategory" class="control-label"></label>
+                <select asp-for="DoctoList.PractitionerJobCategory" asp-items="Html.GetEnumSelectList<Entities.HISEntities.PractitionerEntity.PractitionerJobCategory>().ToList()" class="form-control"></select>
+                <span asp-validation-for="DoctoList.PractitionerJobCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.FirstName" class="control-label"></label>
+                <input asp-for="DoctoList.FirstName" class="form-control" />
+                <span asp-validation-for="DoctoList.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.FirstName" class="control-label"></label>
+                <input asp-for="DoctoList.LastName" class="form-control" />
+                <span asp-validation-for="DoctoList.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="DoctoList.LastName" />
+
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.Gender" class="control-label"></label>
+                <select asp-for="DoctoList.Gender" asp-items="Html.GetEnumSelectList<Entities.Person.GenderType>().ToList()" class="form-control"></select>
+                <span asp-validation-for="DoctoList.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.RegisterationNo" class="control-label"></label>
+                <input asp-for="DoctoList.RegisterationNo" class="form-control" />
+                <span asp-validation-for="DoctoList.RegisterationNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.NationalCode" class="control-label"></label>
+                <input asp-for="DoctoList.NationalCode" class="form-control" />
+                <span asp-validation-for="DoctoList.NationalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.Gender" class="control-label"></label>
+                <input asp-for="DoctoList.RegisterationNo" class="form-control" />
+                <span asp-validation-for="DoctoList.FatherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.RegisterationNo" class="control-label"></label>
+                <input asp-for="DoctoList.RegisterationNo" class="form-control" />
+                <span asp-validation-for="DoctoList.NationalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.NationalCode" class="control-label"></label>
+                <input asp-for="DoctoList.NationalCode" class="form-control" />
+                <span asp-validation-for="DoctoList.FatherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.FatherName" class="control-label"></label>
+                <input asp-for="DoctoList.FatherName" class="form-control" />
+                <span asp-validation-for="DoctoList.BirthPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.BirthPlace" class="control-label"></label>
+                <input asp-for="DoctoList.TelNo1" class="form-control" />
+                <span asp-validation-for="DoctoList.BirthPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctoList.Address" class="control-label"></label>
+                <input asp-for="DoctoList.Address" class="form-control" />
+                <span asp-validation-for="DoctoList.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities.LocationsEntities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,18 +21,18 @@ namespace HIS.Data
             _Context = Context;
         }
 
-        //private GenericRepository<MEDevice> _MEDeviceRepository;
-        //public GenericRepository<MEDevice> MEDeviceRepository
-        //{
-        //    get
-        //    {
-        //        if (_MEDeviceRepository == null)
-        //        {
-        //            _MEDeviceRepository = new GenericRepository<MEDevice>(_Context);
-        //        }
-        //        return _MEDeviceRepository;
-        //    }
-        //}
+        private GenericRepository<Locations,TContext> _LocationsRepository;
+        public GenericRepository<Locations,TContext> LocationsRepository
+        {
+            get
+            {
+                if (_LocationsRepository == null)
+                {
+                    _LocationsRepository = new GenericRepository<Locations,TContext>(_Context);
+                }
+                return _LocationsRepository;
+            }
+        }
 
         public IGenericRepository<TEntity> IGenericRepository<TEntity>() where TEntity : class
         {

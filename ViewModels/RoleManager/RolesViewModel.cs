@@ -9,6 +9,8 @@ namespace ViewModels.RoleManager
         [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
+        public string RoleID { get; set; }
+
         [JsonPropertyName("ردیف")]
         public int Row { get; set; }
 

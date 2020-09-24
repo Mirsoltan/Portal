@@ -1,6 +1,10 @@
-﻿using Data.HIS.Repositories;
+﻿using Common.DateTimeControl;
+using Data;
+using Data.HIS.Repositories;
 using Data.Repositories;
 using Data.UnitOfWork;
+using Entities.identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Api;
 using Services.Api.Contract;
@@ -24,9 +28,12 @@ namespace IocConfig
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddTransient<IjwtService, jwtService>();
 
+
+            services.AddTransient<IConvertDates, ConvertDates>();
             services.AddTransient<LocationRepository>();
             services.AddTransient<AdmissionReposotories>();
 
+            
 
             return services;
         }

@@ -8,8 +8,16 @@ namespace Data.UnitOfWork
 {
     public interface IUnitOfWork :IDisposable
     {
+        /// <summary>
+        /// برای جاهایی که نیاز است به خود کانتکست دسترسی داشته باشیم
+        /// مثل   _Context.Query
+        /// </summary>
+        PortalDbContext _Context { get; }
         IBaseRepository<TEntity> BaseRepository<TEntity>() where TEntity : class;
-        //PortalDbContext _Context { get; }
         Task Commit();
+
+
+
+        ILocationRepository ILocationRepository { get; }
     }
 }

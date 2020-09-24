@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Data;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Contracts;
 using Services.Identity;
@@ -9,6 +11,9 @@ namespace IocConfig
     {
         public static void AddCustomIdentityServices(this IServiceCollection services)
         {
+           
+
+
             services.AddIdentityOptions();
             services.AddDynamicPersmission();
             services.AddScoped<IApplicationRoleManager, ApplicationRoleManager>();

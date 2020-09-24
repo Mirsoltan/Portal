@@ -16,12 +16,12 @@
             <input type="hidden" asp-for="DoctorsID" />
             <div class="form-group">
                 <label asp-for="PractitionerSpeciality" class="control-label"></label>
-                <select asp-for="PractitionerSpeciality" class="form-control"></select>
+                <select asp-for="PractitionerSpeciality" asp-items="Html.GetEnumSelectList<Entities.HISEntities.PractitionerEntity.PractitionerSpeciality>().ToList()" class="form-control"></select>
                 <span asp-validation-for="PractitionerSpeciality" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PractitionerJobCategory" class="control-label"></label>
-                <select asp-for="PractitionerJobCategory" class="form-control"></select>
+                <select asp-for="PractitionerJobCategory" asp-items="Html.GetEnumSelectList<Entities.HISEntities.PractitionerEntity.PractitionerJobCategory>().ToList()" class="form-control"></select>
                 <span asp-validation-for="PractitionerJobCategory" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                <select asp-for="Gender" class="form-control"></select>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Entities.Person.GenderType>().ToList()" class="form-control"></select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">

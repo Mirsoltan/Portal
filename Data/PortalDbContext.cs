@@ -22,8 +22,9 @@ using System.Text;
 
 namespace Data
 {
+
     public class PortalDbContext : IdentityDbContext<User,
-        Role, int, UserClaim, UserRole, IdentityUserLogin<int>, RoleClaim, IdentityUserToken<int>>
+            Role, int, UserClaim, UserRole, IdentityUserLogin<int>, RoleClaim, IdentityUserToken<int>>
     {
         public PortalDbContext(DbContextOptions options) : base(options)
         {

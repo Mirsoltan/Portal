@@ -10,19 +10,18 @@ using Entities.LocationsEntities;
 using Data.Repositories;
 using ViewModels.Location;
 using WebApp.Areas.UserPanel.Models;
+using Data.UnitOfWork;
 
 namespace WebApp.Areas.UserPanel.Controllers
 {
     [Area("UserPanel")]
     public class LocationsController : Controller
     {
-        private readonly PortalDbContext _context;
-        private readonly LocationRepository _repository;
-        public LocationsController(PortalDbContext context
-            ,LocationRepository repository)
+        private readonly IUnitOfWork _uw;
+        public LocationsController(IUnitOfWork uw)
         {
-            _context = context;
-            _repository = repository;
+
+            _uw = uw;
         }
 
         // GET: UserPanel/Locations
@@ -39,7 +38,7 @@ namespace WebApp.Areas.UserPanel.Controllers
             //{
             //    _repository.BindSubCategories(item);
             //}
-            HomeViewModel ViewModel = new HomeViewModel(_repository.GetLocations());
+            HomeViewModel ViewModel = new HomeViewModel(_uw.ILocationRepository.GetLocations());
 
             return View(ViewModel);
         }
@@ -52,9 +51,19 @@ namespace WebApp.Areas.UserPanel.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Locations
-                .Include(l => l.location)
-                .FirstOrDefaultAsync(m => m.LocationID == id);
+            //var location = await _uw.BaseRepository<Locations>().FindByConditionAsync(i=>i.LocationID==id,o=>o.OrderBy(l=>l.LocationName),l=>l.LocationS);
+            var location =await  _uw.BaseRepository<Locations>().FindByIdAsync(id);
+            //.FindByConditionAsync(i => i.LocationID == id).Result
+            //  .Select(x => new Locations
+            //  {
+            //      IconAddress = x.IconAddress,
+            //      LocationID = x.LocationID,
+            //      LocationName = x.LocationName,
+            //      ParentLocationID = x.ParentLocationID
+            //  });
+            //.FindByConditionAsync(includes:"location")
+            //.Include(l => l.location)
+            //.FirstOrDefaultAsync(m => m.LocationID == id);
             if (location == null)
             {
                 return NotFound();
@@ -64,9 +73,9 @@ namespace WebApp.Areas.UserPanel.Controllers
         }
 
         // GET: UserPanel/Locations/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ParentLocationID"] = new SelectList(_context.Locations, "LocationID", "LocationName");
+            ViewData["ParentLocationID"] = new SelectList(await _uw.BaseRepository<Locations>().FindAllAsync(), "LocationID", "LocationName");
             return View();
         }
 
@@ -79,11 +88,11 @@ namespace WebApp.Areas.UserPanel.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(location);
-                await _context.SaveChangesAsync();
+                await _uw.BaseRepository<Locations>().CreateAsync(location);
+                await _uw.Commit();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentLocationID"] = new SelectList(_context.Locations, "LocationID", "LocationName", location.ParentLocationID);
+            ViewData["ParentLocationID"] = new SelectList(await _uw.BaseRepository<Locations>().FindAllAsync(), "LocationID", "LocationName", location.ParentLocationID);
             return View(location);
         }
 
@@ -95,12 +104,12 @@ namespace WebApp.Areas.UserPanel.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Locations.FindAsync(id);
+            var location = await _uw.BaseRepository<Locations>().FindByIdAsync(id);
             if (location == null)
             {
                 return NotFound();
             }
-            ViewData["ParentLocationID"] = new SelectList(_context.Locations, "LocationID", "LocationName", location.ParentLocationID);
+            ViewData["ParentLocationID"] = new SelectList(await _uw.BaseRepository<Locations>().FindAllAsync(), "LocationID", "LocationName", location.ParentLocationID);
             return View(location);
         }
 
@@ -120,8 +129,8 @@ namespace WebApp.Areas.UserPanel.Controllers
             {
                 try
                 {
-                    _context.Update(location);
-                    await _context.SaveChangesAsync();
+                    _uw.BaseRepository<Locations>().Update(location);
+                    await _uw.Commit();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -136,7 +145,7 @@ namespace WebApp.Areas.UserPanel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentLocationID"] = new SelectList(_context.Locations, "LocationID", "LocationName", location.ParentLocationID);
+            ViewData["ParentLocationID"] = new SelectList(await _uw.BaseRepository<Locations>().FindAllAsync(), "LocationID", "LocationName", location.ParentLocationID);
             return View(location);
         }
 
@@ -148,9 +157,9 @@ namespace WebApp.Areas.UserPanel.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Locations
-                .Include(l => l.location)
-                .FirstOrDefaultAsync(m => m.LocationID == id);
+            var location = await _uw.BaseRepository<Locations>().FindByIdAsync(id);
+            //    .Include(l => l.location)
+            //    .FirstOrDefaultAsync(m => m.LocationID == id);
             if (location == null)
             {
                 return NotFound();
@@ -164,15 +173,15 @@ namespace WebApp.Areas.UserPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var location = await _context.Locations.FindAsync(id);
-            _context.Locations.Remove(location);
-            await _context.SaveChangesAsync();
+            //var location = await _context.Locations.FindAsync(id);
+            //_context.Locations.Remove(location);
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LocationExists(int id)
         {
-            return _context.Locations.Any(e => e.LocationID == id);
+            return (_uw.BaseRepository<Locations>().FindByIdAsync(id) != null);
         }
     }
 }

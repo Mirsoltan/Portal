@@ -13,6 +13,7 @@ namespace ViewModels.UserManager
         [JsonPropertyName("Id")]
         public int? Id { get; set; }
         //public string Id { get; set; }
+        public string UserID { get; set; }
 
         [JsonPropertyName("ردیف")]
         public int Row { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Data.Repositories
         public BaseRepository(TContext Context)
         {
             _Context = Context;
-            //_Context.CheckArgumentIsNull(nameof(_Context));
+            _Context.CheckArgumentIsNull(nameof(_Context));
 
             dbSet = _Context.Set<TEntity>();
         }

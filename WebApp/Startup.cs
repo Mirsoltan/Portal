@@ -14,13 +14,8 @@ using Data;
 using IocConfig;
 using IocConfig.Api.Middlewares;
 using IocConfig.Api.Swagger;
-using Services;
 using ViewModels.DynamicAccess;
 using ViewModels.Settings;
-using Common.DateTimeControl;
-using Microsoft.AspNetCore.Identity;
-using Entities.identity;
-using IocConfig.AutoMapper;
 using ReflectionIT.Mvc.Paging;
 
 namespace WebApp
@@ -40,23 +35,23 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<PortalDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("PortalConnectionString")));
+            ////services.AddDbContext<PortalDbContext>(options =>
+            ////    options.UseSqlServer(
+            ////        Configuration.GetConnectionString("PortalConnectionString")));
 
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<PortalDbContext>();
+            ////services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            ////    .AddEntityFrameworkStores<PortalDbContext>();
 
-            //services.AddTransient<IConvertDates, ConvertDates>();
+            ////services.AddTransient<IConvertDates, ConvertDates>();
 
-            //services.AddControllersWithViews();
-            //services.AddRazorPages();
+            ////services.AddControllersWithViews();
+            ////services.AddRazorPages();
 
             services.Configure<SiteSettings>(Configuration.GetSection(nameof(SiteSettings)));
 
             services.AddDbContext<PortalDbContext>(
                 options => options.UseSqlServer
-                (Configuration.GetConnectionString("SqlServer1")));
+                (Configuration.GetConnectionString("SqlServer")));
 
             services.AddCustomServices();
 
@@ -94,9 +89,6 @@ namespace WebApp
                 }
             );
 
-            services.AddTransient<IConvertDates, ConvertDates>();
-
-            
             services.AddPaging(options => {
                 options.ViewName = "Bootstrap4";
                 options.HtmlIndicatorDown = "<i class='fa fa-sort-amount-down'></i>";
